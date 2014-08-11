@@ -44,7 +44,7 @@ function checkFirstVisit() {
 
  function updateBannerOnScrollBanner(){
     var div = document.getElementById('cookie-banner');
-    div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;position: fixed;width:100%" align="center">Ce site utilise Google Analytics.\
+    div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;position: fixed;top:0;width:100%" align="center">Ce site utilise Google Analytics.\
     Si vous continuez à scroller, nous déposerons un cookie à des fins de \
     mesure d\'audience. <br>\
     <a href="javascript:showInform()"> En savoir plus ou s\'opposer </a>.</div>';          
@@ -52,7 +52,7 @@ function checkFirstVisit() {
 
  function updateBannerConsented(){
     var div = document.getElementById('cookie-banner');
-    div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;position: fixed;width:100%" align="center">Ce site utilise Google Analytics.\
+    div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;position: fixed;top:0;width:100%" align="center">Ce site utilise Google Analytics.\
     Vous avez consenti au dépôt d\'un cookie à des fins de \
     mesure d\'audience. <br>\
     <a href="javascript:showInform()"> Pour vous y opposer</a>.</div>';          
