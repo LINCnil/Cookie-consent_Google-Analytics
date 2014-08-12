@@ -33,7 +33,7 @@ function checkFirstVisit() {
     div.setAttribute('width','70%');
     // Le code HTML de la demande de consentement
     // Vous pouvez modifier le contenu ainsi que le style
-    div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;width:100%" align="center">Ce site utilise Google Analytics.\
+        div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;width:100%" id="cookie-banner-message" align="center">Ce site utilise Google Analytics.\
     En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de \
     mesure d\'audience. <br>\
     <a href="javascript:showInform()"> En savoir plus ou s\'opposer </a>.</div>';          
@@ -44,7 +44,7 @@ function checkFirstVisit() {
 
  function updateBannerOnScrollBanner(){
     var div = document.getElementById('cookie-banner');
-    div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;position: fixed;top:0;width:100%" align="center">Ce site utilise Google Analytics.\
+      if ( div!= null ) div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;position: fixed;width:100%" id="cookie-banner-message" align="center">Ce site utilise Google Analytics.\
     Si vous continuez à scroller, nous déposerons un cookie à des fins de \
     mesure d\'audience. <br>\
     <a href="javascript:showInform()"> En savoir plus ou s\'opposer </a>.</div>';          
@@ -52,7 +52,7 @@ function checkFirstVisit() {
 
  function updateBannerConsented(){
     var div = document.getElementById('cookie-banner');
-    div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;position: fixed;top:0;width:100%" align="center">Ce site utilise Google Analytics.\
+     if ( div!= null ) div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;position: fixed;width:100%" id="cookie-banner-message" align="center">Ce site utilise Google Analytics.\
     Vous avez consenti au dépôt d\'un cookie à des fins de \
     mesure d\'audience. <br>\
     <a href="javascript:showInform()"> Pour vous y opposer</a>.</div>';          
@@ -221,6 +221,11 @@ function consentByScroll() {
 			callGoogleAnalytics();
 			updateBannerConsented();
 	}		
+	if (window.pageYOffset == 0) {
+		var div = document.getElementById('cookie-banner-message');
+    		// Ci dessous le code de la bannière affichée une fois que l'utilisateur s'est opposé au dépot
+   		 if ( div!= null ) div.style.position = 'relative';
+	} 
 }
 
 // Tag Google Analytics, cette version est avec le tag Universal Analytics
