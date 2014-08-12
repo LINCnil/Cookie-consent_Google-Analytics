@@ -19,7 +19,7 @@ function getCookieExpireDate() {
 }
 
 
-//Cette focntion vérifie si on  a déjà obtenu le consentement de la personne qui visite le site
+//Cette fonction vérifie si on  a déjà obtenu le consentement de la personne qui visite le site
 function checkFirstVisit() {
    var consentCookie =  getCookie('hasConsent'); 
    if ( !consentCookie ) return true;
@@ -34,7 +34,7 @@ function checkFirstVisit() {
     // Le code HTML de la demande de consentement
     // Vous pouvez modifier le contenu ainsi que le style
         div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;width:100%" id="cookie-banner-message" align="center">Ce site utilise Google Analytics.\
-    En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de \
+    En continuant à naviguer, vous nous autorisez à déposer des cookies à des fins de \
     mesure d\'audience. <br>\
     <a href="javascript:showInform()"> En savoir plus ou s\'opposer </a>.</div>';          
     bodytag.insertBefore(div,bodytag.firstChild); // Ajoute la banniére juste au début de la page 
@@ -45,7 +45,7 @@ function checkFirstVisit() {
  function updateBannerOnScrollBanner(){
     var div = document.getElementById('cookie-banner');
       if ( div!= null ) div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;position: fixed;width:100%" id="cookie-banner-message" align="center">Ce site utilise Google Analytics.\
-    Si vous continuez à scroller, nous déposerons un cookie à des fins de \
+    Si vous continuez à scroller, nous déposerons des cookies à des fins de \
     mesure d\'audience. <br>\
     <a href="javascript:showInform()"> En savoir plus ou s\'opposer </a>.</div>';          
  }
@@ -53,9 +53,9 @@ function checkFirstVisit() {
  function updateBannerConsented(){
     var div = document.getElementById('cookie-banner');
      if ( div!= null ) div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;position: fixed;width:100%" id="cookie-banner-message" align="center">Ce site utilise Google Analytics.\
-    Vous avez consenti au dépôt d\'un cookie à des fins de \
+    Vous avez consenti au dépôt de cookies à des fins de \
     mesure d\'audience. <br>\
-    <a href="javascript:showInform()"> Pour vous y opposer</a>.</div>';          
+    <a href="javascript:showInform()"> Changer d\'avis et vous y opposer</a>.</div>';          
  }
       
       
@@ -74,7 +74,7 @@ function getCookie(NameOfCookie)  {
     return null;
 }
 
-//Récupére la version d'Internet Explorer, si c'est un autre navigateur la fonction retourn -1
+//Récupère la version d'Internet Explorer, si c'est un autre navigateur la fonction retourne -1
 function getInternetExplorerVersion() {
   var rv = -1;
   if (navigator.appName == 'Microsoft Internet Explorer')  {
@@ -186,7 +186,7 @@ function isClickOnOptOut( evt) { // Si le noeud parent ou le noeud parent du par
 }
 
 function consent(evt) {
-	if (!isClickOnOptOut(evt) ) { // On vérifie qu'il ne s'agit pas d'un clique sur la banniére
+	if (!isClickOnOptOut(evt) ) { // On vérifie qu'il ne s'agit pas d'un clic sur la banniére
 		if ( !clickprocessed) {
 			evt.preventDefault();
 			document.cookie = 'hasConsent=true; '+ getCookieExpireDate() +' ; path=/'; 
@@ -197,8 +197,8 @@ function consent(evt) {
 	}
 }
 
-// Cette fonction en teste permet de faire une call GA  afin de povuoir compter le nombre de visite sans faire de suivi des utilisateurs (fonction en cours de teste)
-// Cela créer un evenement page qui est consultable depuis le paneau evenement de GA
+// Cette fonction en test permet de faire une call GA  afin de povuoir compter le nombre de visite sans faire de suivi des utilisateurs (fonction en cours de test)
+// Cela crée un évènement page qui est consultable depuis le paneau évènement de GA
 // Potentiellement cette méthode pourrait être utilisé pour comptabiliser les click sur l'opt-out
 function callGABeforeConsent() {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -210,13 +210,13 @@ function callGABeforeConsent() {
 	__gaTracker('send', 'event', 'page', 'load', {'nonInteraction': 1});
 }
 
-//Si vous souhaitez considérer le scroll comme une action positive utiliser ce code
+//Si vous souhaitez considérer le scroll comme une action positive utilisez ce code
 function consentByScroll() {
 	scrollMax = Math.max(scrollMax,window.pageYOffset); 
 	if (scrollMax < 600) {
 		updateBannerOnScrollBanner();
 	}
-	if (scrollMax  > 600) {
+	if (scrollMax  > 600) {// le consentement sera considéré comme acquis lorsque l'internaute aura scrollé de 600 pixels.
 			document.cookie = 'hasConsent=true; '+ getCookieExpireDate() +' ; path=/';
 			callGoogleAnalytics();
 			updateBannerConsented();
@@ -244,7 +244,7 @@ function callGoogleAnalytics() {
 // la baniére
 var consentCookie =  getCookie('hasConsent');
 clickprocessed = false; 
-if (!consentCookie) {//L'utilisateur n'a pas encore de cookie, n affiche la banniére et si il clique sur un autre élément que la banniére, on enregistre le consentement
+if (!consentCookie) {//L'utilisateur n'a pas encore de cookie, on affiche la banniére et si il clique sur un autre élément que la banniére, on enregistre le consentement
 	if ( notToTrack() ) { //L'utilisateur a activé DoNotTrack. Do not ask for consent and just opt him out
 		gaOptout()
 		alert("You've enabled DNT, we're respecting your choice")
