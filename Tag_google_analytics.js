@@ -210,7 +210,7 @@ function callGABeforeConsent() {
 	__gaTracker('send', 'event', 'page', 'load', {'nonInteraction': 1});
 }
 
-//Si vous souhaitez considérer le scroll comme une action positive utiliser ce code
+//Si vous souhaitez considérer le scroll comme une action positive (ce qui ne correspond pas à la cinématique en deux étapes  recommandée) utiliser ce code
 function consentByScroll() {
 	scrollMax = Math.max(scrollMax,window.pageYOffset); 
 	if (scrollMax < 600) {
@@ -253,7 +253,7 @@ if (!consentCookie) {//L'utilisateur n'a pas encore de cookie, n affiche la bann
 			consent();
 		} else {
 			window.onload = showBanner;
-			window.onscroll = consentByScroll;
+			//window.onscroll = consentByScroll; // Méthode de consentement non recommandée 
 			document.onclick = consent;
 			callGABeforeConsent()
 		}
