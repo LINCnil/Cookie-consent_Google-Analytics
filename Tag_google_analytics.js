@@ -151,7 +151,7 @@ function createInformAndAskDiv() {
     div.innerHTML =  '<div style="width: 300px; background-color: white; repeat scroll 0% 0% white; border: 1px solid #cccccc; padding :10px 10px;text-align:center; position: fixed; top:50%; left:50%; margin-top:-150px; margin-left:-150px; z-index:100000; opacity:1" id="inform-and-consent">\
 	<div><span><b>Les cookies Google Analytics</b></span></div><br><div>Ce site utilise  des cookies de Google Analytics,\
 	ces cookies nous aident à identifier le contenu qui vous interesse le plus ainsi qu\'à repérer certains \
-	disfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc</div><div style="padding :10px 10px"><table><tr><td><button \
+	dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc</div><div style="padding :10px 10px"><table><tr><td><button \
 	name="S\'opposer" onclick="gaOptout();hideInform();" id="optout-button" >S\'opposer</button></td><td><button name="cancel" onclick="hideInform()" >Accepter</button></td></tr></table></div></div>' 
     bodytag.insertBefore(div,bodytag.firstChild); // Ajoute la banniére juste au début de la page 
 }
@@ -241,7 +241,7 @@ function callGoogleAnalytics() {
 }
 
 //Ce bout de code vérifie que le consentement n'a pas déjà été obtenu avant d'afficher
-// la banniére
+// la bannière
 var consentCookie =  getCookie('hasConsent');
 clickprocessed = false; 
 if (!consentCookie) {//L'utilisateur n'a pas encore de cookie, on affiche la banniére et si il clique sur un autre élément que la banniére, on enregistre le consentement
