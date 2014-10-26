@@ -2,7 +2,7 @@ var tagAnalyticsCNIL = {}
 
 tagAnalyticsCNIL.CookieConsent = function() {
 	// Remplacez la valeur UA-XXXXXX-Y par l'identifiant analytics de votre site.
-	var gaProperty = 'UA-44195656-1'
+	var gaProperty = 'UA-XXXXXX-Y '
 	// Désactive le tracking si le cookie d’Opt-out existe déjà.
 	var disableStr = 'ga-disable-' + gaProperty;
 	var firstCall = false;
@@ -223,8 +223,14 @@ tagAnalyticsCNIL.CookieConsent = function() {
 					if (isToTrack() ) { //DNT is set to 0, no need to ask for consent just set cookies
 						consent();
 					} else {
-						window.onload = showBanner;
-						document.onclick = consent;
+						if (window.addEventListener) { // See note https://github.com/CNILlab/Cookie-consent_Google-Analytics/commit/e323b3be2c4a4d05300e35cdc11102841abdcbc9
+						  // Standard browsers
+						  window.addEventListener("load", showBanner, false);
+						  document.addEventListener("click", consent, false);
+						} else {
+						  window.attachEvent("onload", showBanner);
+						  document.attachEvent("onclick", consent);
+						}
 						callGABeforeConsent()
 					}
 				}
