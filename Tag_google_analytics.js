@@ -2,7 +2,7 @@ var tagAnalyticsCNIL = {}
 
 tagAnalyticsCNIL.CookieConsent = function() {
 	// Remplacez la valeur UA-XXXXXX-Y par l'identifiant analytics de votre site.
-	var gaProperty = 'UA-XXXXXX-Y'
+	var gaProperty = 'UA-44195656-1'
 	// Désactive le tracking si le cookie d’Opt-out existe déjà.
 	var disableStr = 'ga-disable-' + gaProperty;
 	var firstCall = false;
@@ -35,7 +35,7 @@ tagAnalyticsCNIL.CookieConsent = function() {
 			div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;width:100%" id="cookie-banner-message" align="center">Ce site utilise Google Analytics.\
 		En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de \
 		mesure d\'audience. <br>\
-		<a href="javascript:showInform()"> En savoir plus ou s\'opposer </a>.</div>';          
+		<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()"> En savoir plus ou s\'opposer </a>.</div>';          
 		bodytag.insertBefore(div,bodytag.firstChild); // Ajoute la banniére juste au début de la page 
 		document.getElementsByTagName('body')[0].className+=' cookiebanner';	
 		createInformAndAskDiv();
@@ -134,34 +134,11 @@ tagAnalyticsCNIL.CookieConsent = function() {
 		<div><span><b>Les cookies Google Analytics</b></span></div><br><div>Ce site utilise  des cookies de Google Analytics,\
 		ces cookies nous aident à identifier le contenu qui vous interesse le plus ainsi qu\'à repérer certains \
 		dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc</div><div style="padding :10px 10px"><table><tr><td><button \
-		name="S\'opposer" onclick="gaOptout();hideInform();" id="optout-button" >S\'opposer</button></td><td><button name="cancel" onclick="hideInform()" >Accepter</button></td></tr></table></div></div>' 
+		name="S\'opposer" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();tagAnalyticsCNIL.CookieConsent.hideInform();" id="optout-button" >S\'opposer</button></td><td><button name="cancel" onclick="hideInform()" >Accepter</button></td></tr></table></div></div>' 
 		bodytag.insertBefore(div,bodytag.firstChild); // Ajoute la banniére juste au début de la page 
 	}
 
-
-	function showInform() {
-		var div = document.getElementById("inform-and-ask");
-		div.style.display = "";
-	}
 	  
-	  
-	function hideInform() {
-		var div = document.getElementById("inform-and-ask");
-		div.style.display = "none";
-	}
-	  
-	// La fonction d'opt-out   
-	function gaOptout() {
-		document.cookie = disableStr + '=true;'+ getCookieExpireDate() +' ; path=/';       
-		document.cookie = 'hasConsent=false;'+ getCookieExpireDate() +' ; path=/';
-		var div = document.getElementById('cookie-banner');
-		// Ci dessous le code de la bannière affichée une fois que l'utilisateur s'est opposé au dépot
-		// Vous pouvez modifier le contenu et le style
-		if ( div!= null ) div.innerHTML = '<div style="background-color:#ffffff" id="cookie-message"> Vous vous êtes opposé \
-		au dépôt de cookies de mesures d\'audience dans votre navigateur </div>'
-		window[disableStr] = true;
-		deleteAnalyticsCookies();
-	}
 
 	function isClickOnOptOut( evt) { // Si le noeud parent ou le noeud parent du parent est la banniére, on ignore le clic
 		return(evt.target.parentNode.id == 'cookie-banner' || evt.target.parentNode.parentNode.id =='cookie-banner' || evt.target.id == 'optout-button')
@@ -206,6 +183,33 @@ tagAnalyticsCNIL.CookieConsent = function() {
 	}
 
 	return {
+		
+			// La fonction d'opt-out   
+		 gaOptout: function() {
+			document.cookie = disableStr + '=true;'+ getCookieExpireDate() +' ; path=/';       
+			document.cookie = 'hasConsent=false;'+ getCookieExpireDate() +' ; path=/';
+			var div = document.getElementById('cookie-banner');
+			// Ci dessous le code de la bannière affichée une fois que l'utilisateur s'est opposé au dépot
+			// Vous pouvez modifier le contenu et le style
+			if ( div!= null ) div.innerHTML = '<div style="background-color:#ffffff" id="cookie-message"> Vous vous êtes opposé \
+			au dépôt de cookies de mesures d\'audience dans votre navigateur </div>'
+			window[disableStr] = true;
+			deleteAnalyticsCookies();
+		},
+
+		
+		 showInform: function() {
+			var div = document.getElementById("inform-and-ask");
+			div.style.display = "";
+		},
+		  
+		  
+		 hideInform: function() {
+			var div = document.getElementById("inform-and-ask");
+			div.style.display = "none";
+		},
+		
+		
 		start: function() {
 			//Ce bout de code vérifie que le consentement n'a pas déjà été obtenu avant d'afficher
 			// la bannière
@@ -213,7 +217,7 @@ tagAnalyticsCNIL.CookieConsent = function() {
 			clickprocessed = false; 
 			if (!consentCookie) {//L'utilisateur n'a pas encore de cookie, on affiche la banniére et si il clique sur un autre élément que la banniére, on enregistre le consentement
 				if ( notToTrack() ) { //L'utilisateur a activé DoNotTrack. Do not ask for consent and just opt him out
-					gaOptout()
+					tagAnalyticsCNIL.CookieConsent.gaOptout()
 					alert("You've enabled DNT, we're respecting your choice")
 				} else {
 					if (isToTrack() ) { //DNT is set to 0, no need to ask for consent just set cookies
