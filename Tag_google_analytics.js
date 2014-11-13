@@ -32,10 +32,10 @@ tagAnalyticsCNIL.CookieConsent = function() {
 		div.setAttribute('width','70%');
 		// Le code HTML de la demande de consentement
 		// Vous pouvez modifier le contenu ainsi que le style
-			div.innerHTML =  '<div style="background-color:#ffffff; padding:10px 10px;width:100%" id="cookie-banner-message" align="center">Ce site utilise Google Analytics.\
+		div.innerHTML =  '<div style="background-color:#fff;text-align:center;padding:5px;font-size:12px;border-bottom:1px solid #eeeeee;" id="cookie-banner-message" align="center">Ce site utilise Google Analytics.\
 		En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de \
-		mesure d\'audience. <br>\
-		<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()"> En savoir plus ou s\'opposer </a>.</div>';          
+		mesure d\'audience. \
+		<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()" style="text-decoration:underline;"> En savoir plus ou s\'opposer</a>.</div>';
 		bodytag.insertBefore(div,bodytag.firstChild); // Ajoute la banniére juste au début de la page 
 		document.getElementsByTagName('body')[0].className+=' cookiebanner';	
 		createInformAndAskDiv();
@@ -130,11 +130,11 @@ tagAnalyticsCNIL.CookieConsent = function() {
 		//div.style.backgroundColor = "white";
 		// Le code HTML de la demande de consentement
 		// Vous pouvez modifier le contenu ainsi que le style
-		div.innerHTML =  '<div style="width: 300px; background-color: white; repeat scroll 0% 0% white; border: 1px solid #cccccc; padding :10px 10px;text-align:center; position: fixed; top:50%; left:50%; margin-top:-150px; margin-left:-150px; z-index:100000; opacity:1" id="inform-and-consent">\
+		div.innerHTML =  '<div style="width: 300px; background-color: white; repeat scroll 0% 0% white; border: 1px solid #cccccc; padding :10px 10px;text-align:center; position: fixed; top:30px; left:50%; margin-top:0px; margin-left:-150px; z-index:100000; opacity:1" id="inform-and-consent">\
 		<div><span><b>Les cookies Google Analytics</b></span></div><br><div>Ce site utilise  des cookies de Google Analytics,\
 		ces cookies nous aident à identifier le contenu qui vous interesse le plus ainsi qu\'à repérer certains \
-		dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc</div><div style="padding :10px 10px"><table><tr><td><button \
-		name="S\'opposer" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();tagAnalyticsCNIL.CookieConsent.hideInform();" id="optout-button" >S\'opposer</button></td><td><button name="cancel" onclick="hideInform()" >Accepter</button></td></tr></table></div></div>' 
+		dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc</div><div style="padding :10px 10px;text-align:center;"><button style="margin-right:50px;text-decoration:underline;" \
+		name="S\'opposer" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();tagAnalyticsCNIL.CookieConsent.hideInform();" id="optout-button" >S\'opposer</button><button style="text-decoration:underline;" name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()" >Accepter</button></div></div>';
 		bodytag.insertBefore(div,bodytag.firstChild); // Ajoute la banniére juste au début de la page 
 	}
 
@@ -191,7 +191,7 @@ tagAnalyticsCNIL.CookieConsent = function() {
 			var div = document.getElementById('cookie-banner');
 			// Ci dessous le code de la bannière affichée une fois que l'utilisateur s'est opposé au dépot
 			// Vous pouvez modifier le contenu et le style
-			if ( div!= null ) div.innerHTML = '<div style="background-color:#ffffff" id="cookie-message"> Vous vous êtes opposé \
+			if ( div!= null ) div.innerHTML = '<div style="background-color:#fff;text-align:center;padding:5px;font-size:12px;border-bottom:1px solid #eeeeee;" id="cookie-message"> Vous vous êtes opposé \
 			au dépôt de cookies de mesures d\'audience dans votre navigateur </div>'
 			window[disableStr] = true;
 			deleteAnalyticsCookies();
@@ -206,6 +206,8 @@ tagAnalyticsCNIL.CookieConsent = function() {
 		  
 		 hideInform: function() {
 			var div = document.getElementById("inform-and-ask");
+			div.style.display = "none";
+			var div = document.getElementById("cookie-banner");
 			div.style.display = "none";
 		},
 		
