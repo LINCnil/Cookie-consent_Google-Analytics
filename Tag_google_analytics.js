@@ -124,10 +124,9 @@ tagAnalyticsCNIL.CookieConsent = function() {
 		div.setAttribute('id','inform-and-ask');
 		div.style.width= window.innerWidth+"px" ;
 		div.style.height= window.innerHeight+"px";
-		//div.style.opacity = 0.75;
 		div.style.display= "none";
 		div.style.position= "fixed";
-		//div.style.backgroundColor = "white";
+ 	    div.style.zIndex= "100000";
 		// Le code HTML de la demande de consentement
 		// Vous pouvez modifier le contenu ainsi que le style
 		div.innerHTML =  '<div style="width: 300px; background-color: white; repeat scroll 0% 0% white; border: 1px solid #cccccc; padding :10px 10px;text-align:center; position: fixed; top:30px; left:50%; margin-top:0px; margin-left:-150px; z-index:100000; opacity:1" id="inform-and-consent">\
