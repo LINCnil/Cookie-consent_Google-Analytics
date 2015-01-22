@@ -217,9 +217,10 @@ tagAnalyticsCNIL.CookieConsent = function() {
 			var consentCookie =  getCookie('hasConsent');
 			clickprocessed = false; 
 			if (!consentCookie) {//L'utilisateur n'a pas encore de cookie, on affiche la banniére et si il clique sur un autre élément que la banniére, on enregistre le consentement
+			 	window[disableStr] = true; // on désactive les cookies GA par défaut
 				if ( notToTrack() ) { //L'utilisateur a activé DoNotTrack. Do not ask for consent and just opt him out
-					tagAnalyticsCNIL.CookieConsent.gaOptout()
-					alert("You've enabled DNT, we're respecting your choice")
+					tagAnalyticsCNIL.CookieConsent.gaOptout();
+					alert("You've enabled DNT, we're respecting your choice");
 				} else {
 					if (isToTrack() ) { //DNT is set to 0, no need to ask for consent just set cookies
 						consent();
@@ -232,15 +233,16 @@ tagAnalyticsCNIL.CookieConsent = function() {
 						  window.attachEvent("onload", showBanner);
 						  document.attachEvent("onclick", consent);
 						}
-						callGABeforeConsent()
+						callGABeforeConsent();
 					}
 				}
 			} else {
-				if (document.cookie.indexOf('hasConsent=false') > -1) 
+				if (document.cookie.indexOf('hasConsent=false') > -1) {
 					window[disableStr] = true;
-				else 
+				} else {
 					window[disableStr] = false;
 					callGoogleAnalytics();
+				}
 			}
 		}
 	}
