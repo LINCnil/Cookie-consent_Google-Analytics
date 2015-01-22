@@ -217,6 +217,7 @@ tagAnalyticsCNIL.CookieConsent = function() {
 			var consentCookie =  getCookie('hasConsent');
 			clickprocessed = false; 
 			if (!consentCookie) {//L'utilisateur n'a pas encore de cookie, on affiche la banniére et si il clique sur un autre élément que la banniére, on enregistre le consentement
+			 	window[disableStr] = true; // on désactive les cookies GA par défaut
 				if ( notToTrack() ) { //L'utilisateur a activé DoNotTrack. Do not ask for consent and just opt him out
 					tagAnalyticsCNIL.CookieConsent.gaOptout()
 					alert("You've enabled DNT, we're respecting your choice")
