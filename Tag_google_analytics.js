@@ -6,6 +6,7 @@ tagAnalyticsCNIL.CookieConsent = function() {
 	// Désactive le tracking si le cookie d’Opt-out existe déjà.
 	var disableStr = 'ga-disable-' + gaProperty;
 	var firstCall = false;
+	var domaineName = '';
 
 	//Cette fonction retourne la date d’expiration du cookie de consentement 
 
@@ -15,6 +16,25 @@ tagAnalyticsCNIL.CookieConsent = function() {
 	 date.setTime(date.getTime()+cookieTimeout);
 	 var expires = "; expires="+date.toGMTString();
 	 return expires;
+	}
+	
+	function getDomainName() {
+		if (domaineName != '') {
+			return domaineName;
+		} else {
+			var hostname = document.location.hostname;
+			if (hostname.indexOf("www.") === 0)
+				hostname = hostname.substring(4);
+			return hostname;
+		}
+	}
+	
+	//Cette fonction définie le périmétre du consentement ou de l'opposition  (en fonction du domaine)
+    //Par défaut nous considérons que le domaine est tout ce qu'il y'a aprés  "www"	
+	function getCookieDomainName() {
+		var hostname = getDomainName();
+		var domain = "domain=" + "."+hostname;
+		return domain;
 	}
 
 
@@ -102,17 +122,17 @@ tagAnalyticsCNIL.CookieConsent = function() {
 	// Fonction d'effacement des cookies   
 	function delCookie(name )   {
 		var path = ";path=" + "/";
-		var hostname = document.location.hostname;
-		if (hostname.indexOf("www.") === 0)
-			hostname = hostname.substring(4);
-		var domain = ";domain=" + "."+hostname;
+
+
+
+
 		var expiration = "Thu, 01-Jan-1970 00:00:01 GMT";       
-		document.cookie = name + "=" + path + domain + ";expires=" + expiration;
+		document.cookie = name + "=" + path +" ; "+ getCookieDomainName() + ";expires=" + expiration;
 	}
 	  
 	// Efface tous les types de cookies utilisés par Google Analytics    
 	function deleteAnalyticsCookies() {
-		var cookieNames = ["__utma","__utmb","__utmc","__utmz","_ga"]
+		var cookieNames = ["__utma","__utmb","__utmc","__utmz","_ga","_gat"]
 		for (var i=0; i<cookieNames.length; i++)
 			delCookie(cookieNames[i])
 	}
@@ -126,7 +146,7 @@ tagAnalyticsCNIL.CookieConsent = function() {
 		div.style.height= window.innerHeight+"px";
 		div.style.display= "none";
 		div.style.position= "fixed";
- 	    div.style.zIndex= "100000";
+		div.style.zIndex= "100000";
 		// Le code HTML de la demande de consentement
 		// Vous pouvez modifier le contenu ainsi que le style
 		div.innerHTML =  '<div style="width: 300px; background-color: white; repeat scroll 0% 0% white; border: 1px solid #cccccc; padding :10px 10px;text-align:center; position: fixed; top:30px; left:50%; margin-top:0px; margin-left:-150px; z-index:100000; opacity:1" id="inform-and-consent">\
@@ -147,7 +167,7 @@ tagAnalyticsCNIL.CookieConsent = function() {
 		if (!isClickOnOptOut(evt) ) { // On vérifie qu'il ne s'agit pas d'un clic sur la banniére
 			if ( !clickprocessed) {
 				evt.preventDefault();
-				document.cookie = 'hasConsent=true; '+ getCookieExpireDate() +' ; path=/'; 
+				document.cookie = 'hasConsent=true; '+ getCookieExpireDate() +' ; ' +  getCookieDomainName() + ' ; path=/'; 
 				callGoogleAnalytics();
 				clickprocessed = true;
 				window.setTimeout(function() {evt.target.click();}, 1000)
@@ -185,8 +205,8 @@ tagAnalyticsCNIL.CookieConsent = function() {
 		
 			// La fonction d'opt-out   
 		 gaOptout: function() {
-			document.cookie = disableStr + '=true;'+ getCookieExpireDate() +' ; path=/';       
-			document.cookie = 'hasConsent=false;'+ getCookieExpireDate() +' ; path=/';
+			document.cookie = disableStr + '=true;'+ getCookieExpireDate() + ' ; ' +  getCookieDomainName() +' ; path=/';       
+			document.cookie = 'hasConsent=false;'+ getCookieExpireDate() + ' ; ' +  getCookieDomainName() + ' ; path=/';
 			var div = document.getElementById('cookie-banner');
 			// Ci dessous le code de la bannière affichée une fois que l'utilisateur s'est opposé au dépot
 			// Vous pouvez modifier le contenu et le style
