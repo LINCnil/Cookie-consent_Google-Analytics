@@ -260,7 +260,6 @@ tagAnalyticsCNIL.CookieConsent = function() {
 				if (document.cookie.indexOf('hasConsent=false') > -1) 
 					window[disableStr] = true;
 				else 
-					window[disableStr] = false;
 					callGoogleAnalytics();
 			}
 		}
