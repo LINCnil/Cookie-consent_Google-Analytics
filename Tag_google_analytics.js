@@ -208,6 +208,8 @@ tagAnalyticsCNIL.CookieConsent = function() {
 			document.cookie = disableStr + '=true;'+ getCookieExpireDate() + ' ; ' +  getCookieDomainName() +' ; path=/';       
 			document.cookie = 'hasConsent=false;'+ getCookieExpireDate() + ' ; ' +  getCookieDomainName() + ' ; path=/';
 			var div = document.getElementById('cookie-banner');
+			// on considère que le site a été visité
+			clickprocessed = true;
 			// Ci dessous le code de la bannière affichée une fois que l'utilisateur s'est opposé au dépot
 			// Vous pouvez modifier le contenu et le style
 			if ( div!= null ) div.innerHTML = '<div style="background-color:#fff;text-align:center;padding:5px;font-size:12px;border-bottom:1px solid #eeeeee;" id="cookie-message"> Vous vous êtes opposé \
