@@ -213,6 +213,7 @@ tagAnalyticsCNIL.CookieConsent = function() {
 			if ( div!= null ) div.innerHTML = '<div style="background-color:#fff;text-align:center;padding:5px;font-size:12px;border-bottom:1px solid #eeeeee;" id="cookie-message"> Vous vous êtes opposé \
 			au dépôt de cookies de mesures d\'audience dans votre navigateur </div>'
 			window[disableStr] = true;
+			clickprocessed = true; 
 			deleteAnalyticsCookies();
 		},
 
