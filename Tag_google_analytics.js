@@ -8,8 +8,7 @@ tagAnalyticsCNIL.CookieConsent = function () {
 	var firstCall = false;
 	var domaineName = '';
 
-	// Cette fonction retourne la date d’expiration du cookie de consentement
-
+	// Retourne la date d’expiration du cookie de consentement
 	function getCookieExpireDate() {
 	 var cookieTimeout = 33696000000;// Le nombre de millisecondes que font 13 mois
 	 var date = new Date();
@@ -29,7 +28,7 @@ tagAnalyticsCNIL.CookieConsent = function () {
 		}
 	}
 
-	// Cette fonction définit le périmètre du consentement ou de l’opposition (en fonction du domaine)
+	// Définit le périmètre du consentement ou de l’opposition (en fonction du domaine)
   // Par défaut nous considérons que le domaine est tout ce qu’il y a après « www »
 	function getCookieDomainName() {
 		var hostname = getDomainName();
@@ -38,14 +37,14 @@ tagAnalyticsCNIL.CookieConsent = function () {
 	}
 
 
-	// Cette fonction vérifie si l’on a déjà obtenu le consentement du visiteur du site
+	// Vérifie si l’on a déjà obtenu le consentement du visiteur du site
 	function checkFirstVisit() {
-	   var consentCookie =  getCookie('hasConsent');
-	   if ( !consentCookie ) return true;
+	  var consentCookie =  getCookie('hasConsent');
+	  if ( !consentCookie ) return true;
 	}
 
-	// Affiche une bannière d’information en haut de la page
-	 function showBanner(){
+	// Affiche une bannière d’information en haut de page
+	function showBanner(){
 		var bodytag = document.getElementsByTagName('body')[0];
 		var div = document.createElement('div');
 		div.setAttribute('id','cookie-banner');
@@ -62,7 +61,7 @@ tagAnalyticsCNIL.CookieConsent = function () {
 	 }
 
 
-	// Récupérer un cookie a partir de son nom
+	// Récupérer un cookie à partir de son nom
 	function getCookie(NameOfCookie)  {
 		if (document.cookie.length > 0) {
 			begin = document.cookie.indexOf(NameOfCookie+"=");
@@ -103,9 +102,9 @@ tagAnalyticsCNIL.CookieConsent = function () {
 	function notToTrack() {
 		if ( (navigator.doNotTrack && (navigator.doNotTrack=='yes' || navigator.doNotTrack=='1')) || ( navigator.msDoNotTrack && navigator.msDoNotTrack == '1') ) {
 			var isIE = (getInternetExplorerVersion()!=-1)
-			if (!isIE){
+			if (!isIE) {
 				 return true;
-			}else {
+			} else {
 				return askDNTConfirmation();
 			}
 			return false;
@@ -120,7 +119,7 @@ tagAnalyticsCNIL.CookieConsent = function () {
 	}
 
 	// Effacement des cookies
-	function delCookie(name )   {
+	function delCookie(name) {
 		var path = ";path=" + "/";
 		var expiration = "Thu, 01-Jan-1970 00:00:01 GMT";
 		document.cookie = name + "=" + path +" ; "+ getCookieDomainName() + ";expires=" + expiration;
@@ -133,7 +132,7 @@ tagAnalyticsCNIL.CookieConsent = function () {
 			delCookie(cookieNames[i])
 	}
 
-	// La fonction qui informe et demande le consentement. Il s’agit d’un élément « div » qui apparaît au centre de la page
+	// Informe et demande le consentement. Il s’agit d’un élément « div » qui apparaît au centre de la page
 	function createInformAndAskDiv() {
 		var bodytag = document.getElementsByTagName('body')[0];
 		var div = document.createElement('div');
@@ -146,10 +145,10 @@ tagAnalyticsCNIL.CookieConsent = function () {
 		// Le code HTML de la demande de consentement
 		// Vous pouvez modifier le contenu ainsi que le style
 		div.innerHTML =  '<div style="width: 300px; background-color: white; repeat scroll 0% 0% white; border: 1px solid #cccccc; padding :10px 10px;text-align:center; position: fixed; top:30px; left:50%; margin-top:0px; margin-left:-150px; z-index:100000; opacity:1" id="inform-and-consent">\
-		<div><span><b>Les cookies Google Analytics</b></span></div><br><div>Ce site utilise  des cookies de Google Analytics,\
-		ces cookies nous aident à identifier le contenu qui vous interesse le plus ainsi qu\'à repérer certains \
+		<div><span><b>Les cookies Google Analytics</b></span></div><br><div>Ce site utilise des cookies de Google Analytics,\
+		ces cookies nous aident à identifier le contenu qui vous interesse le plus ainsi qu’à repérer certains \
 		dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc</div><div style="padding :10px 10px;text-align:center;"><button style="margin-right:50px;text-decoration:underline;" \
-		name="S\'opposer" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();tagAnalyticsCNIL.CookieConsent.hideInform();" id="optout-button" >S\'opposer</button><button style="text-decoration:underline;" name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()" >Accepter</button></div></div>';
+		name="S’opposer" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();tagAnalyticsCNIL.CookieConsent.hideInform();" id="optout-button" >S’opposer</button><button style="text-decoration:underline;" name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Accepter</button></div></div>';
 		bodytag.insertBefore(div,bodytag.firstChild); // Ajoute la bannière au tout début de la page
 	}
 
